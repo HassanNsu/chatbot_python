@@ -16,13 +16,13 @@ app = Flask(__name__)
 def webhook():
     req = request.get_json(silent=True, force=True)
 
-    print("Request:")
-    print(json.dumps(req, indent=4))
+   # print("Request:")
+    #print(json.dumps(req, indent=4))
 
     res = makeWebhookResult(req)
 
     res = json.dumps(res, indent=4)
-    print(res)
+    #print(res)
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
     return r
@@ -42,11 +42,11 @@ def makeWebhookResult(req):
         zone = "880255668200 7"
     else:
         zone = "Mohammad Ehsanul Karim\nLecturer\nOffice: SAC 946\nPhone: +88 02 55668200\nEmail: ehsanul.karim@northsouth.edu"       
-    print(query)
+    #print(query)
   #  print(query)
    # print(parameters)
     #zone = parameters.get("mek")
-    print(zone)
+    #print(zone)
 #    result2= result.get("fulfillment")
  #   re=result2.get( "messages")
   #  print("helllllllllllllo")
@@ -56,12 +56,12 @@ def makeWebhookResult(req):
 
     #speech = "The interest rate of " + zone + " is " + str(cost[zone])
     speech=zone
-    print("Response:")
-    print(query)
+  #  print("Response:")
+  #  print(query)
 
 #    print(speech)
     if query.find("141"):
-        print("Match")
+   #     print("Match")
     return {
         "speech": speech,
         "displayText": speech,
