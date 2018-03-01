@@ -12,7 +12,7 @@ from flask import make_response
 app = Flask(__name__)
 
 
-@app.route('/')
+@app.route('/webhook', methods=['POST'])
 def webhook():
     req = request.get_json(silent=True, force=True)
 
@@ -75,4 +75,4 @@ def makeWebhookResult(req):
 
   #  print ("Starting app on port %d" %(port))
 
-   # app.run(debug=True, port=port, host='0.0.0.0')
+     app.run()
