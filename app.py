@@ -42,11 +42,33 @@ def makeWebhookResult(req):
 
 
     speech=zone
+    facebook_message = {
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": [
+                    {
+                        "title": title,
+                        "image_url": url,
+                        "subtitle": speech,
+                        "buttons": [
+                            {
+                                "type": "postback",
+                                "url": url,
+                                "title": `BUTTON_TITLE`,
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    }    
 
     return {
         "speech": speech,
         "displayText": speech,
-
+        "data": {"facebook": facebook_message},
         "source": "Mohammad Ehsanul Karim"
     }
 
