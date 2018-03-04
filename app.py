@@ -57,6 +57,7 @@ def makeWebhookResult(req):
                                 "type": "postback",
                                 "url": url,
                                 "title": "View Details"
+                            }
                         ]
                     }
                 ]
