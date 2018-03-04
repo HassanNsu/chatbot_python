@@ -40,7 +40,7 @@ def makeWebhookResult(req):
         zone = "Mohammad Ehsanul Karim\nLecturer\nOffice: SAC 946\nPhone: +88 02 55668200\nEmail: ehsanul.karim@northsouth.edu"       
 
 
-
+"""
     speech=zone
     facebook_message = {
         "attachment": {
@@ -64,11 +64,11 @@ def makeWebhookResult(req):
             }
         }
     }    
-
+    """
     return {
         "speech": speech,
         "displayText": speech,
-        "data": {"facebook": facebook_message},
+ #       "data": {"facebook": facebook_message},
         "source": "Mohammad Ehsanul Karim"
     }
 
