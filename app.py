@@ -50,12 +50,12 @@ def makeWebhookResult(req):
                 "elements": [
                     {
                         "title":'title',
-                        "image_url": url,
+                        "image_url": "url",
                         "subtitle": speech,
                         "buttons": [
                             {
                                 "type": "postback",
-                                "url": url,
+                                "url": "url",
                                 "title": "View Details"
                             }
                         ]
