@@ -56,8 +56,7 @@ def makeWebhookResult(req):
                             {
                                 "type": "postback",
                                 "url": url,
-                                "title": `BUTTON_TITLE`,
-                            }
+                                "title": "View Details"
                         ]
                     }
                 ]
