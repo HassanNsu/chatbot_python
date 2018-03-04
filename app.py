@@ -49,7 +49,7 @@ def makeWebhookResult(req):
                 "template_type": "generic",
                 "elements": [
                     {
-                        "title": channel.get('title'),
+                        "title":'title',
                         "image_url": url,
                         "subtitle": speech,
                         "buttons": [
