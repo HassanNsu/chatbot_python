@@ -6,6 +6,7 @@ import os
 from flask import Flask
 from flask import request
 from flask import make_response
+import pandas as pd
 
 # Flask app should start in global layout
 app = Flask(__name__)
@@ -25,53 +26,56 @@ def webhook():
     return r
 
 def makeWebhookResult(req):
-    if req.get("result").get("action") != "getMEK":
-        return {}
-    result = req.get("result")
 
-    query = result.get("resolvedQuery")
-    if 'email' in query.lower():
-        zone = "ehsanul.karim@northsouth.edu"
-    elif 'office' in query.lower():
-        zone = "Office: SAC 946"
-    elif 'phone' in query.lower():
-        zone = "880255668200 7"
+     
+    #if req.get("result").get("action") != "facultyAMC":
+     #   return {}
+    parameters = req.get("result").get("action") 
+
+    if parameters[:7]=='faculty':
+       zone =  findFacultyInfo(req,parameters)
     else:
-        zone = "Mohammad Ehsanul Karim\nLecturer\nOffice: SAC 946\nPhone: +88 02 55668200\nEmail: ehsanul.karim@northsouth.edu"       
+        zone=''
+   
 
 
 
     speech=zone
-    """
-    facebook_message = {
-        "attachment": {
-            "type": "template",
-            "payload": {
-                "template_type": "generic",
-                "elements": [
-                    {
-                        "title":'title',
-                        "image_url": "url",
-                        "subtitle": speech,
-                        "buttons": [
-                            {
-                                "type": "postback",
-                                "url": "url",
-                                "title": "View Details"
-                            }
-                        ]
-                    }
-                ]
-            }
-        }
-    }    
-    """
+
     return {
         "speech": speech,
         "displayText": speech,
  #       "data": {"facebook": facebook_message},
-        "source": "Mohammad Ehsanul Karim"
+        "source": parameters
     }
+
+def findFacultyInfo(req , faculty):
+    data = pd.read_csv('all_faculty2.csv')
+
+    data.set_index("initial", inplace=True) 
+
+    #print faculty
+    result = req.get("result")
+
+    query = result.get("resolvedQuery")
+    if 'email' in query.lower():
+        res = data.loc[[faculty[7:]],'email']
+        zone = res[0]
+
+    elif 'office' in query.lower():
+        res = data.loc[[faculty[7:]],'office']
+        zone = res[0]
+
+    elif 'phone' in query.lower():
+        res = data.loc[[faculty[7:]],'phone']
+        zone = res[0]
+
+    else:
+        res = data.loc[[faculty[7:]],'details']
+        zone = res[0] 
+    
+    return zone
+
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
